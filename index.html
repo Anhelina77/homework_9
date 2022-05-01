@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Work 9</title>
+</head>
+<body>
+<script>
+    const todo = {};
+
+        Object.defineProperty(todo, 'list', {
+
+            value: [],
+
+    writable: false,
+    configurable: false,
+    });
+
+        Object.defineProperty(todo, 'addTask', {
+
+            value: function(task) {
+
+         if(!this.list.some(item => item.title === task.title)) {
+
+          this.list.push(task);
+        }
+    },
+
+        writable: false,
+        configurable: false,
+    });
+
+        Object.defineProperty(todo, 'removeTask', {
+
+            value: function(task) {
+
+        this.list.forEach((item, index) => {
+
+          if(item.title === task.title) {
+
+              this.list.splice(index, 1);
+              return
+            }
+         })
+    },
+        writable: false,
+        configurable: false,
+    });
+
+        Object.defineProperty(todo, 'editTask', {
+
+            value: function(task) {
+
+        this.list.forEach((item, index) => {
+
+          if(item.title === task.title) {
+
+              this.list[index] = task;
+              return
+            }
+        })
+    },
+        writable: false,
+        configurable: false,
+    });
+
+        Object.defineProperty(todo, 'info', {
+
+            value: function() {
+
+        
+            const all = this.list.length;
+
+
+            const completed = this.list.filter(item => item.completed).length;
+                return {
+                all,
+                completed,
+
+                performing: all - completed,
+             }
+      },
+            writable: false,
+            configurable: false,
+        });
+
+
+todo.addTask({title: 'task1', text: 'text1', completed: false});
+todo.addTask({title: 'task2', text: 'text2', completed: false});
+todo.addTask({title: 'task3', text: 'text3', completed: false});
+todo.removeTask({title: 'task2'});
+todo.editTask({title: 'task3', text: 'text3', completed: true});
+console.log(todo.info());
+</script>
+</body>
+</html>
